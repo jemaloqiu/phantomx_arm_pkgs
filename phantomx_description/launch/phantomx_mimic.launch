@@ -1,0 +1,18 @@
+<launch>
+  <param name="robot_description"
+    command="$(find xacro)/xacro.py '$(find phantomx_description)/urdf/phantomx_mimic.xacro'" />
+
+  <!--send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+    <param name="use_mimic_tags" value="TRUE"/>
+  </node>
+
+ <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	respawn="false" output="screen">
+  </node>
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find phantomx_description)/config/phantomx.rviz"/>
+
+</launch>
